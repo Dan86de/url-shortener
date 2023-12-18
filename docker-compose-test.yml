@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  nestjs_postgres_test:
+  nestjs_postgres_test: 
     image: postgres:alpine
-    container_name: test_postgres
+    container_name: test_postgres 
     restart: 'no'
     env_file:
       - .env.test
