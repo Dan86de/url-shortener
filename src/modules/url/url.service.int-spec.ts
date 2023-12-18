@@ -114,4 +114,78 @@ describe('UrlService Integration Tests', () => {
       });
     });
   });
+
+  describe(`findOne`, () => {
+    it(`should return null when url does not exist`, async () => {
+      // database is cleared before every test so no urls exist
+      const url = await urlService.findOne(`non-existing-url`);
+
+      expect(url).toBeNull();
+    });
+
+    it(`should return respective url when found`, async () => {
+      const uid = `123456`;
+      const persistedUrl = await databaseService.url.create({
+        data: {
+          title: `My special link`,
+          redirect: `https://tomray.dev`,
+          url: `${host}/${uid}`,
+        },
+      });
+      const url = await urlService.findOne(uid);
+
+      expect(url).toEqual(persistedUrl);
+    });
+  });
+
+  describe(`update`, () => {
+    it(`should update and return respective url`, async () => {
+      await databaseService.url.create({
+        data: {
+          id: '1',
+          title: `My special link`,
+          redirect: `https://tomray.dev`,
+          url: `${host}/123456`,
+        },
+      });
+      const url = await urlService.update('1', { title: `Updated title` });
+      const updatedPersistedUrl = await databaseService.url.findUnique({
+        where: { id: '1' },
+      });
+
+      expect(url).toEqual(updatedPersistedUrl);
+    });
+
+    it(`should throw error when url does not exist`, async () => {
+      const updateUrl = urlService.update('1', { title: `Updated title` });
+
+      await expect(updateUrl).rejects.toThrow();
+    });
+  });
+
+  describe(`remove`, () => {
+    it(`should remove and return respective url`, async () => {
+      const persistedUrl = await databaseService.url.create({
+        data: {
+          id: '1',
+          title: `My special link`,
+          redirect: `https://tomray.dev`,
+          url: `${host}/123456`,
+        },
+      });
+      const url = await urlService.remove('1');
+      const removedPersistedUrl = await databaseService.url.findUnique({
+        where: { id: '1' },
+      });
+
+      expect(url).toEqual(persistedUrl);
+      expect(removedPersistedUrl).toBeNull();
+    });
+
+    it(`should throw error when url does not exist`, async () => {
+      const removeUrl = urlService.remove('1');
+
+      await expect(removeUrl).rejects.toThrow();
+    });
+  });
 });
