@@ -45,9 +45,6 @@ describe('UrlService Integration Tests', () => {
       const urls = await databaseService.url.findMany();
 
       const response = await urlService.findAll({});
-
-      console.log(response.data);
-
       expect(response.data).toEqual(urls);
     });
 

@@ -60,6 +60,7 @@ export class UrlService {
     const nextPage = page < totalPages ? `${baseUrl}&page=${page + 1}` : null;
     const previousPage = page > 1 ? `${baseUrl}&page=${page - 1}` : null;
 
+    // TODO: think about total count logic
     const meta = {
       totalCount: totalCount,
       currentPage: page,

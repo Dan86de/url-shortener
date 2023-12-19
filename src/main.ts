@@ -10,6 +10,7 @@ async function bootstrap() {
   app.useLogger(app.get(LoggerService));
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  await app.listen(port);
+  const host = `0.0.0.0`;
+  await app.listen(port, host);
 }
 bootstrap();
