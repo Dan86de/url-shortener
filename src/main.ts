@@ -8,6 +8,17 @@ async function bootstrap() {
   const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(LoggerService));
+  app.enableCors({
+    origin: [
+      'http://danielnoworyta.com',
+      /\.danielnoworyta\.com$/,
+      'http://danielnoworyta.pl',
+      /\.danielnoworyta\.pl$/,
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   const host = `0.0.0.0`;
