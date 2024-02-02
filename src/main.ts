@@ -10,9 +10,9 @@ async function bootstrap() {
   app.useLogger(app.get(LoggerService));
   app.enableCors({
     origin: [
-      'http://danielnoworyta.com',
+      'https://danielnoworyta.com',
       /\.danielnoworyta\.com$/,
-      'http://danielnoworyta.pl',
+      'https://danielnoworyta.pl',
       /\.danielnoworyta\.pl$/,
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
