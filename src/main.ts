@@ -9,12 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(LoggerService));
   app.enableCors({
-    origin: [
-      'https://danielnoworyta.com',
-      /\.danielnoworyta\.com$/,
-      'https://danielnoworyta.pl',
-      /\.danielnoworyta\.pl$/,
-    ],
+    origin: false,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204,
