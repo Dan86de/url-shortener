@@ -50,3 +50,5 @@ You can now spin up your local server with this script:
 ```
 pnpm start:dev
 ```
+
+Enjoy!
